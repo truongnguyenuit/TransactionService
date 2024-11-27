@@ -1,0 +1,14 @@
+POST {{host}}/transaction
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzM4NCJ9.eyJpYXQiOjE3MzI2OTA5NDgsImV4cCI6MTczMjc3NzM0OCwiZW1haWwiOiJ0cnVvbmczQGdtYWlsLmNvbSIsImF1dGhvcml0aWVzIjoiUk9MRV9BRE1JTiJ9.1cpjEAo-Fk-e75WN8SDUcSX1ESxeOuurtk19uEOAAPjhnYd8UpnbwlcebULEqUPQ
+
+{
+  "bookId": 2,
+  "userId": 1
+}
+###
+PUT {{host}}/transaction/1
+###
+GET {{host}}/transaction
+###
+POST {{host}}/transaction/test
