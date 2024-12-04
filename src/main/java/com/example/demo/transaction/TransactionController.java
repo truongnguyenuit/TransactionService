@@ -19,19 +19,24 @@ public class TransactionController {
         this.transactionService = transactionService;
     }
 
-    @PreAuthorize("hasRole('ADMIN')")
     @PostMapping()
-    public ResponseEntity<TransactionDTO> issueBook(@RequestBody TransactionReq req) throws ApiRequestException {
-        return new ResponseEntity<>(transactionService.issueBook(req), HttpStatus.CREATED);
+    @PreAuthorize("hasRole('ADMIN')")
+    public ResponseEntity<TransactionDTO> issueBook(
+            @RequestHeader String authorization,
+            @RequestBody TransactionReq req) throws ApiRequestException {
+        return new ResponseEntity<>(transactionService.issueBook(req, authorization), HttpStatus.CREATED);
     }
 
-    @PreAuthorize("hasRole('ADMIN')")
     @PutMapping("/{id}")
-    public ResponseEntity<Transaction> returnBook(@PathVariable Long id) throws ApiRequestException {
-        return new ResponseEntity<>(transactionService.returnBook(id), HttpStatus.OK);
+    @PreAuthorize("hasRole('ADMIN')")
+    public ResponseEntity<Transaction> returnBook(
+            @RequestHeader String authorization,
+            @PathVariable Long id) throws ApiRequestException {
+        return new ResponseEntity<>(transactionService.returnBook(id, authorization), HttpStatus.OK);
     }
 
     @GetMapping()
+    @PreAuthorize("hasRole('ADMIN') or hasRole('CUSTOMER')")
     public ResponseEntity<List<Transaction>> getTransactions() {
         return new ResponseEntity<>(transactionService.getTransactions(), HttpStatus.OK);
     }

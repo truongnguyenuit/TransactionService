@@ -30,17 +30,19 @@ public class TransactionServiceImpl implements TransactionService {
     }
 
     @Override
-    public TransactionDTO issueBook(TransactionReq req) throws ApiRequestException {
-        BookDTO bookDTO = bookClient.getBookById(req.bookId());
+    public TransactionDTO issueBook(TransactionReq req, String authorization) throws ApiRequestException {
+        BookDTO bookDTO = bookClient.getBookById(req.bookId(), authorization);
+
         if (bookDTO == null || bookDTO.isAvailable().equals(false)) {
             throw new ApiRequestException("Book not available");
         }
-        UserDTO userDTO = userClient.getUserById(req.userId());
+
+        UserDTO userDTO = userClient.getUserById(req.userId(), authorization);
         if (userDTO == null) {
             throw new ApiRequestException("User not found");
         }
 
-        BookDTO updateBookIsAvailable = bookClient.updateBookIsAvailable(bookDTO.id(), false);
+        BookDTO updateBookIsAvailable = bookClient.updateBookIsAvailable(bookDTO.id(), false, authorization);
         if (updateBookIsAvailable.isAvailable().equals(true)) {
             throw new ApiRequestException("Book service problems");
         }
@@ -57,7 +59,7 @@ public class TransactionServiceImpl implements TransactionService {
     }
 
     @Override
-    public Transaction returnBook(Long transactionId) throws ApiRequestException {
+    public Transaction returnBook(Long transactionId, String authorization) throws ApiRequestException {
         Optional<Transaction> transaction = transactionRepository.findById(transactionId);
         if(transaction.isEmpty()) {
             throw new ApiRequestException("Transaction not found");
@@ -66,7 +68,10 @@ public class TransactionServiceImpl implements TransactionService {
             throw new ApiRequestException("Transaction is completed");
         }
 
-        BookDTO updateBookIsAvailable = bookClient.updateBookIsAvailable(transaction.get().getBookId(), true);
+        BookDTO updateBookIsAvailable = bookClient.updateBookIsAvailable(
+                transaction.get().getBookId(),
+                true,
+                authorization);
         if (updateBookIsAvailable.isAvailable().equals(false)) {
             throw new ApiRequestException("Book service problems");
         }

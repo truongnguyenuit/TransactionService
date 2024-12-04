@@ -7,9 +7,9 @@ import com.example.demo.utils.exception.ApiRequestException;
 import java.util.List;
 
 public interface TransactionService {
-    TransactionDTO issueBook(TransactionReq req) throws ApiRequestException;
+    TransactionDTO issueBook(TransactionReq req, String authorization) throws ApiRequestException;
 
-    Transaction returnBook(Long transactionId) throws ApiRequestException;
+    Transaction returnBook(Long transactionId, String authorization) throws ApiRequestException;
 
     List<Transaction> getTransactions();
 }

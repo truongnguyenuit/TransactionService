@@ -3,6 +3,7 @@ package com.example.demo.client;
 import com.example.demo.dto.BookDTO;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -22,15 +23,31 @@ public class BookClient {
         this.externalBookApiUrl = externalBookApiUrl;
     }
 
-    public BookDTO getBookById(Long bookId) throws RestClientException {
-        return restTemplate.getForObject(externalBookApiUrl + bookId, BookDTO.class);
+    public BookDTO getBookById(Long bookId, String authorization) throws RestClientException {
+        HttpHeaders headers = new HttpHeaders();
+        headers.set("Authorization", authorization);
+
+        ResponseEntity<BookDTO> response = restTemplate.exchange(
+                externalBookApiUrl + bookId,
+                HttpMethod.GET,
+                new HttpEntity<>(headers),
+                BookDTO.class
+        );
+
+        return response.getBody();
     }
 
-    public BookDTO updateBookIsAvailable(Long bookId, Boolean available) {
+    public BookDTO updateBookIsAvailable(Long bookId, Boolean available, String authorization) {
+        HttpHeaders headers = new HttpHeaders();
+        headers.set("Authorization", authorization);
         String url = externalBookApiUrl + bookId;
-        HttpEntity<Boolean> requestBody = new HttpEntity<>(available);
 
-        ResponseEntity<BookDTO> response = restTemplate.exchange(url, HttpMethod.PUT, requestBody, BookDTO.class);
+        ResponseEntity<BookDTO> response = restTemplate.exchange(
+                url,
+                HttpMethod.PUT,
+                new HttpEntity<>(available, headers),
+                BookDTO.class
+        );
 
         return response.getBody();
     }

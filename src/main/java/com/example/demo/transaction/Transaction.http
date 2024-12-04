@@ -1,14 +1,15 @@
 POST {{host}}/transaction
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzM4NCJ9.eyJpYXQiOjE3MzI2OTA5NDgsImV4cCI6MTczMjc3NzM0OCwiZW1haWwiOiJ0cnVvbmczQGdtYWlsLmNvbSIsImF1dGhvcml0aWVzIjoiUk9MRV9BRE1JTiJ9.1cpjEAo-Fk-e75WN8SDUcSX1ESxeOuurtk19uEOAAPjhnYd8UpnbwlcebULEqUPQ
+Authorization: Bearer eyJhbGciOiJIUzM4NCJ9.eyJpYXQiOjE3MzMyOTM2MDcsImV4cCI6MTczMzM4MDAwNywiZW1haWwiOiJ0cnVvbmczQGdtYWlsLmNvbSIsImF1dGhvcml0aWVzIjoiUk9MRV9BRE1JTiJ9.ppBf73ZMM9E3v7iTwpFB1h0xdach6grA2xta2QV5dz4yNOSG6w47joONiamGMc_N
 
 {
-  "bookId": 2,
-  "userId": 1
+  "bookId": 5,
+  "userId": 8
 }
 ###
-PUT {{host}}/transaction/1
+PUT {{host}}/transaction/9
+Authorization: Bearer eyJhbGciOiJIUzM4NCJ9.eyJpYXQiOjE3MzMyOTM2MDcsImV4cCI6MTczMzM4MDAwNywiZW1haWwiOiJ0cnVvbmczQGdtYWlsLmNvbSIsImF1dGhvcml0aWVzIjoiUk9MRV9BRE1JTiJ9.ppBf73ZMM9E3v7iTwpFB1h0xdach6grA2xta2QV5dz4yNOSG6w47joONiamGMc_N
+
 ###
 GET {{host}}/transaction
-###
-POST {{host}}/transaction/test
+Authorization: Bearer eyJhbGciOiJIUzM4NCJ9.eyJpYXQiOjE3MzMyOTM2MDcsImV4cCI6MTczMzM4MDAwNywiZW1haWwiOiJ0cnVvbmczQGdtYWlsLmNvbSIsImF1dGhvcml0aWVzIjoiUk9MRV9BRE1JTiJ9.ppBf73ZMM9E3v7iTwpFB1h0xdach6grA2xta2QV5dz4yNOSG6w47joONiamGMc_N
